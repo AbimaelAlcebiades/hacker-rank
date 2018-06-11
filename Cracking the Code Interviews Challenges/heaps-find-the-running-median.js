@@ -56,6 +56,32 @@ listOfInteger.forEach(value => {
     console.log(ordenedArray);
 });
 
+function main() {
+    const n = parseInt(readLine(), 10);
+
+    let a = [];
+
+    for (let i = 0; i < n; i++) {
+        const aItem = parseInt(readLine(), 10);
+
+        a.push(aItem);
+        a.sort(function (a, b) {
+            return a - b;
+        });
+
+        let middle = parseInt(a.length / 2, 10);
+        if (a.length % 2 != 0) {
+            console.log(a[middle].toFixed(1));
+        } else {
+            console.log(
+                ((a[middle] + a[middle - 1]) / 2).toFixed(1)
+            );
+        }
+
+    }
+}
+
+
 
 
 
