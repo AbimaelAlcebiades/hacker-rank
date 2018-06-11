@@ -1,7 +1,3 @@
-const listOfInteger = [40, 1, 100, 40, 2, 1, 21, 3, 1];
-
-let ordenedArray = [];
-
 /**
  * Recursive method to insert value orderly .
  * 
@@ -21,17 +17,19 @@ function indexToInsert(value, ordenedArray, start, end) {
     if(end == undefined){
         end = ordenedArray.length - 1;
     }
-    
-    let indexMiddle = parseInt( (end - start + 1) / 2, 10);
+
+    let indexMiddle = parseInt( (end + start) / 2, 10);
+
     if(value == ordenedArray[indexMiddle]){  
         return indexMiddle;
     }
 
     if (end <= start){
+        let returnIndex;
         if(value < ordenedArray[indexMiddle]){
-            return ordenedArray.indexOf(ordenedArray[end]) - 1;
+            return ordenedArray.indexOf(ordenedArray[indexMiddle]);
         }else{
-            return ordenedArray.indexOf(ordenedArray[end]) + 1;
+            return ordenedArray.indexOf(ordenedArray[indexMiddle]) + 1;
         }
     }
 
@@ -45,16 +43,6 @@ function indexToInsert(value, ordenedArray, start, end) {
     }
 
 }
-
-listOfInteger.forEach(value => {
-    let index = ordenedArray.indexOf(value);
-    if (index == -1){
-        index = indexToInsert(value, ordenedArray);
-    }
-
-    ordenedArray.splice(index, 0, value);
-    console.log(ordenedArray);
-});
 
 function main() {
     const n = parseInt(readLine(), 10);
@@ -81,8 +69,41 @@ function main() {
     }
 }
 
+const listOfInteger = [
+100000,
+37632,
+10118,
+25334,
+84618,
+87339,
+97852,
+91683,
+99232,
+31552,
+90453,
+46239,
+89445,
+23303,
+46262,
+65147,
+1564,
+];
+let a = [];
+
+listOfInteger.forEach(integer => {
+    let indexInteger = a.indexOf(integer);
+    if (indexInteger == -1) {
+        indexInteger = indexToInsert(integer, a);
+    }
+
+    a.splice(indexInteger, 0, integer);
+    console.log(a);
+});
+
+console.log(a);
 
 
 
+//main();
 
 
