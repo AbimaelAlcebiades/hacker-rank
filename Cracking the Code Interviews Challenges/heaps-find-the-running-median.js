@@ -41,69 +41,101 @@ function indexToInsert(value, ordenedArray, start, end) {
         // Right.
         return indexToInsert(value, ordenedArray, indexMiddle + 1, end);
     }
-
 }
 
-function main() {
-    const n = parseInt(readLine(), 10);
-
-    let a = [];
-
-    for (let i = 0; i < n; i++) {
-        const aItem = parseInt(readLine(), 10);
-
-        a.push(aItem);
-        a.sort(function (a, b) {
-            return a - b;
-        });
-
-        let middle = parseInt(a.length / 2, 10);
-        if (a.length % 2 != 0) {
-            console.log(a[middle].toFixed(1));
-        } else {
-            console.log(
-                ((a[middle] + a[middle - 1]) / 2).toFixed(1)
-            );
-        }
-
-    }
-}
-
-const listOfInteger = [
-100000,
-37632,
+let teste = [37632,
 10118,
 25334,
 84618,
 87339,
 97852,
-91683,
-99232,
-31552,
-90453,
-46239,
-89445,
-23303,
-46262,
-65147,
-1564,
+91683
 ];
-let a = [];
 
-listOfInteger.forEach(integer => {
-    let indexInteger = a.indexOf(integer);
-    if (indexInteger == -1) {
-        indexInteger = indexToInsert(integer, a);
+let result = [];
+
+function main() {
+    //const n = parseInt(readLine(), 10);
+    const n = 100000;  
+
+    let a = [];
+
+    for (let i = 0; i < n; i++) {
+        //const aItem = parseInt(readLine(), 10);
+        const aItem = teste.splice(0, 1)[0];
+        
+        let indexInteger = a.indexOf(aItem);
+        if (indexInteger == -1) {
+            indexInteger = indexToInsert(aItem, a);
+        }
+
+        a.splice(indexInteger, 0, aItem);
+
+        let middle = parseInt(a.length / 2, 10);
+        if (a.length % 2 != 0) {
+            //console.log(a[middle].toFixed(1));
+            result.push(a[middle].toFixed(1));
+        } else {
+            /*console.log(
+                ((a[middle] + a[middle - 1]) / 2).toFixed(1)
+            );*/
+            result.push(((a[middle] + a[middle - 1]) / 2).toFixed(1));
+        }
     }
+}
 
-    a.splice(indexInteger, 0, integer);
-    console.log(a);
+main();
+console.log(result);
+
+
+// SOLUCAO 
+// gchagalidze
+// https://www.hackerrank.com/rest/contests/master/challenges/ctci-find-the-running-median/hackers/gchagalidze/download_solution
+
+process.stdin.resume();
+process.stdin.setEncoding('ascii');
+
+var input_stdin = "";
+var input_stdin_array = "";
+var input_currentline = 0;
+
+process.stdin.on('data', function (data) {
+    input_stdin += data;
 });
 
-console.log(a);
+process.stdin.on('end', function () {
+    input_stdin_array = input_stdin.split("\n");
+    main();
+});
 
+function readLine() {
+    return input_stdin_array[input_currentline++];
+}
 
+/////////////// ignore above this line ////////////////////
 
-//main();
+function main() {
+    var n = parseInt(readLine());
+    var arr = [];
 
+    for (i = 0; i < n; i++) {
+        var value = Number(readLine());
+        if (i == 0) arr.push(value);
+        else if (arr[0] > value) arr.unshift(value);
+        else if (arr[arr.length - 1] < value) arr.push(value);
+        else {
+            for (var j = 0; j < arr.length; j++) {
+                if (arr[j] >= value) {
+                    arr.splice(j, 0, value);
+                    break;
+                }
+            }
+        }
 
+        var isEven = (arr.length % 2 == 0);
+        var middle = Math.floor(arr.length / 2);
+
+        if (!isEven) console.log(arr[middle].toFixed(1));
+        else console.log(((arr[middle - 1] + arr[middle]) / 2).toFixed(1));
+    }
+}
